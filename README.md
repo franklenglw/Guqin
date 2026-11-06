@@ -1,4 +1,5 @@
 这个插件是用在musescore 3.6中用于渲染古琴标记的，所使用的是https://github.com/neuralfirings/JianZiPu
+
 上面的jianzipu字体（V3.2）。
 使用说明和版权说明，具体见说明书和LICENSE。
 
