@@ -1,6 +1,6 @@
-﻿这个插件是用在 MuseScore 中用于渲染古琴标记的，所使用的是（https://github.com/neuralfirings/JianZiPu）上面的 JianZiPu 字体（V3.2）。
+﻿这个插件是用在 MuseScore 中用于渲染古琴标记的，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font）上面的思源琴黑 Noto Qin Jianzipu。
 
-This plugin is used in MuseScore to render guqin notation symbols. It uses the JianZiPu font (V3.2) from (https://github.com/neuralfirings/JianZiPu).
+This plugin is used in MuseScore to render guqin notation symbols. It uses the JianZiPu font (V3.2) from (https://github.com/Adrakaris/guqin-jianzipu-font).
 
 已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
 
