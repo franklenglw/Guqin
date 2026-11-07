@@ -1,3 +1,5 @@
+古琴减字谱编辑器
+-------------------------------
 这个插件是用在 MuseScore 中用于渲染古琴标记的，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font ） 上面的思源琴黑 Noto Qin Jianzipu。
 
 This plugin is used in MuseScore to render guqin notation symbols. It uses the Noto Qin Jianzipu from (https://github.com/Adrakaris/guqin-jianzipu-font).
