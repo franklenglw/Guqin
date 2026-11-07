@@ -1,6 +1,6 @@
-这个插件是用在 MuseScore 中用于渲染古琴标记的，所使用的是（https://github.com/neuralfirings/JianZiPu）上面的 JianZiPu 字体（V3.2）。
+这个插件是用在 MuseScore 中用于渲染古琴标记的，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font）上面的思源琴黑 Noto Qin Jianzipu。
 
-This plugin is used in MuseScore to render guqin notation symbols. It uses the JianZiPu font (V3.2) from (https://github.com/neuralfirings/JianZiPu).
+This plugin is used in MuseScore to render guqin notation symbols. It uses the Noto Qin Jianzipu from (https://github.com/Adrakaris/guqin-jianzipu-font).
 
 已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
 
@@ -9,64 +9,3 @@ It has been tested for stability in MuseScore 3.7 and 3.6.2. As for MuseScore 4.
 使用说明和版权说明，具体见说明书和 LICENSE。
 
 For usage instructions and copyright information, see the manual and LICENSE for details.
-
-古琴减字谱编辑器V5.0（Guqin JianZiPu Editor V5.0）版权说明 / Copyright Notice
-
-一、许可声明 / License Statement
-
-本项目（含全部源代码、界面文字、数据结构，以及本项目作者撰写的文档）以 CC0 1.0 Universal（公共领域贡献）协议发布。
-This project — including all source code, UI text, data structures and documentation written by the author — is released under CC0 1.0 Universal (Public Domain Dedication).
-
-在法律允许的最大范围内，本项目作者放弃对本作品的一切著作权及邻接权，包括全部相关权利与诉讼权。
-To the greatest extent permitted by law, the author waives all copyright and related or neighboring rights to this work, including all related claims and causes of action.
-
-CC0 1.0 全文见：https://creativecommons.org/publicdomain/zero/1.0/legalcode
-
-二、你可以做什么 / What You May Do
-
-你可以自由地、无需任何许可地：使用、复制、修改、合并、发布、分发、再许可、出售本作品的原始版本或修改版本。
-You may freely, without asking permission: use, copy, modify, merge, publish, distribute, sublicense and sell the original or modified version of this work.
-
-具体包括，但不限于：
-- 在个人、教学、演出、录音、出版等任何场景中使用；
-- 用于商业用途（含商业乐谱排版、付费软件集成、商业演出伴奏、外包制谱服务等）；
-- 修改代码、增删功能、改换界面、改换字体、改换插件名称与菜单名；
-- 将本插件整体或部分嵌入你自己的商业或非商业软件产品中；
-- 分发原始版本或修改版本，无论免费或收费；
-- 以闭源方式分发你的修改版本。
-
-三、你不需要做什么 / What You Do Not Have To Do
-
-- 无需署名：你不必标注原作者、不必保留本说明文件、不必在界面或文档中出现任何致谢。
-- 无需开源：你的修改版本可以完全闭源。
-- 无需同协议：你不必沿用 CC0，可换成任何你喜欢的许可证（包括专有许可）。
-- 无需声明修改：你不必说明你改动了哪些地方。
-
-四、免责声明 / Disclaimer
-
-本作品按“现状”提供，不附带任何明示或默示的担保，包括但不限于对适销性、特定用途适用性、权利无瑕疵或不侵权的担保。
-作者不对因使用或无法使用本作品而产生的任何直接、间接、偶然、特殊、惩戒性或后果性损害承担责任。
-使用前请自行备份乐谱。
-
-五、第三方内容说明（重要）/ Third-Party Components (Important)
-
-CC0 仅覆盖本项目的代码与文档，不覆盖下列第三方内容，请自行确认其授权：
-
-1. 字体：Noto Qin Jianzipu 字体（思源琴黑，Noto Qin Jianzipu Font）
-授权信息 / License: SIL Open Font License 1.1 (OFL 1.1)
-版权 / Copyright: © 2024 The Noto Qin Jianzipu Project Authors. (Based on Noto Sans SC).
-说明：该字体基于思源黑体制作，利用 OpenType 的合字（Ligature）特性实现减字谱的拼装渲染。
-
-【分发声明】本项目的 GitHub 仓库中随插件附带了该字体文件（.otf / .ttf）。根据 OFL 1.1 协议，允许将字体与软件捆绑、嵌入并一起免费分发。
-[Distribution] The font file is bundled and distributed with this plugin in this GitHub repository. This is permitted under OFL 1.1, which allows bundling and redistributing fonts alongside software.
-
-分发时必须遵守的核心条件：
-1）附带声明：仓库内包含一个独立的 OFL.txt 文件，其中包含了该字体的版权声明与 OFL 1.1 许可证全文。
-2）不得单独售卖：本字体仅作为本插件的辅助组件免费提供，任何人不得将提取出的字体文件单独作为商品出售。
-3）修改版改名：若有人修改了字体内部的字形并再次分发，修改版不得使用原保留字体名称（Reserved Font Name），除非获得版权持有人书面许可。仅原样打包分发不受此限制。
-
-2. MuseScore 及其插件 API / MuseScore and its plugin API
-属于 MuseScore 项目，遵循其自身的 GPL 等许可，与本项目无关。
-
-3. allItems 标记代码整理 / The code list in allItems
-属本项目作者撰写，已随本项目一并进入公共领域。
