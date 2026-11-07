@@ -8,8 +8,9 @@ This plugin is used in MuseScore to render guqin notation symbols. It uses the N
 
 It has been tested for stability in MuseScore 3.7 and 3.6.2. As for MuseScore 4.x, since I cannot install the 4.x version on my Windows 7 computer, it has not been tested.
 
-古琴减字谱编辑器 V5.0（Guqin JianZiPu Editor V5.0）版权说明
 
+古琴减字谱编辑器 V5.0（Guqin JianZiPu Editor V5.0）版权说明
+---------------------------------------
 一、许可声明
 
 本项目（含全部源代码、界面文字、数据结构，以及本项目作者撰写的文档）以 CC0 1.0 Universal（公共领域贡献）协议发布。
@@ -69,7 +70,7 @@ CC0 仅覆盖本项目的代码与文档，不覆盖下列第三方内容，请�
 
 
 Guqin JianZiPu Editor V5.0 — Copyright Notice
-
+---------------------------------------
 1. License Statement
 
 This project — including all source code, UI text, data structures, and documentation written by the author of this project — is released under CC0 1.0 Universal (Public Domain Dedication).
