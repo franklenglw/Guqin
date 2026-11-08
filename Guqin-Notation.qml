@@ -330,7 +330,6 @@ MuseScore {
         items.push("名十绰勾六 ｜ \\6g/mi^10/ch")
 
         // 6. 复杂撮与历 (12条)
-        // 【最终修正】：采用正确的 JS 双斜杠转义，确保插件绝对不崩溃，且发出去的字符串是你测试成功的带斜杠版本
         items.push("撮(大七勾一|名九挑三) ｜ \\1g/da^7||\\3t/mi^9")
         items.push("撮(大九挑二|散勾六) ｜ \\2t/da^9||\\6g/s")
         items.push("撮(名七勾三|中九挑五) ｜ \\3g/mi^7||\\5t/zh^9")
@@ -347,6 +346,29 @@ MuseScore {
         return items
     }
 
+    // 全角标点/字母/数字 → 半角
+    function toHalfWidth(s) {
+        if (!s) return "";
+        return s
+            // 全角 ASCII 区：；，（）｜＼／－＾＋０-９Ａ-Ｚａ-ｚ 等全部转半角
+            .replace(/[\uFF01-\uFF5E]/g, function(c) {
+                return String.fromCharCode(c.charCodeAt(0) - 0xFEE0);
+            })
+            // 全角空格
+            .replace(/\u3000/g, " ")
+            // 中文专用标点
+            .replace(/、/g, ",")
+            .replace(/。/g, ".")
+            .replace(/[“”]/g, '"')
+            .replace(/[‘’]/g, "'");
+    }
+
+    // 只保留字体语法需要的字符：字母数字、反斜杠、斜杠、减号、脱字符、竖线
+    function sanitizeCode(s) {
+        if (!s) return "";
+        return s.replace(/[^0-9A-Za-z\\\/\-\^\|]/g, "");
+    }
+
     function codeOfItem(s) {
         var parts = s.split("｜")
         return parts.length > 1 ? parts[1].trim() : parts[0].trim()
@@ -358,7 +380,7 @@ MuseScore {
         
         for (var i = 0; i < allItems.length; i++) {
             var parts = allItems[i].split("｜");
-            if (parts.length > 1 && parts[1].trim() === code) {
+            if (parts.length > 1 && toHalfWidth(parts[1].trim()) === toHalfWidth(code)) {
                 return parts[0].trim();
             }
         }
@@ -366,12 +388,12 @@ MuseScore {
     }
 
     function filterItems() {
-        var kw = searchInput.text.trim().toLowerCase()
+        var kw = toHalfWidth(searchInput.text.trim()).toLowerCase()
         if (kw === "") { filteredItems = allItems; return }
         var kws = kw.split(/\s+/)
         var res = []
         for (var i = 0; i < allItems.length; i++) {
-            var s = allItems[i].toLowerCase()
+            var s = toHalfWidth(allItems[i]).toLowerCase()
             var ok = true
             for (var j = 0; j < kws.length; j++) {
                 if (s.indexOf(kws[j]) < 0) { ok = false; break }
@@ -458,7 +480,7 @@ MuseScore {
                 var rawText = texts[i].text.replace(/\r/g, "")
                 var lines = rawText.split("\n")
                 for (var j = 0; j < lines.length; j++) {
-                    var raw = lines[j].replace(/[+]/g, "").trim()
+                    var raw = toHalfWidth(lines[j].replace(/[+]/g, "").trim())
                     if (raw !== "") {
                         codes.push(codeToChinese(raw))
                     }
@@ -485,10 +507,8 @@ MuseScore {
         var loc = getValidNoteLocation()
         if (!loc.valid) return
 
-        var input = editInput.text.trim()
+        var input = toHalfWidth(editInput.text.trim())
         if (input === "") return
-
-        input = input.replace(/；/g, ";");
 
         var parts = input.split(multiSep)
         var codesToSend = []
@@ -496,20 +516,57 @@ MuseScore {
 
         for (var i = 0; i < parts.length; i++) {
             var c = parts[i].trim()
-            if (c !== "") {
-                var finalCode = c;
-                if (c.indexOf("\\") === -1 && c.indexOf("/") === -1) {
-                    for (var k = 0; k < allItems.length; k++) {
-                        var itemParts = allItems[k].split("｜")
-                        if (itemParts.length > 1 && itemParts[0].trim() === c) {
+            if (c === "") continue
+
+            var finalCode = ""
+
+            // 含反斜杠或斜杠，视为代码段
+            if (c.indexOf("\\") !== -1 || c.indexOf("/") !== -1) {
+                finalCode = sanitizeCode(c)
+            } else {
+                // 不含反斜杠/斜杠，视为中文名，去 allItems 查代码
+                var key = toHalfWidth(c)
+
+                // 第一遍：精确匹配
+                for (var k = 0; k < allItems.length; k++) {
+                    var itemParts = allItems[k].split("｜")
+                    if (itemParts.length > 1) {
+                        var left = toHalfWidth(itemParts[0].trim())
+                        if (left === key) {
                             finalCode = itemParts[1].trim()
                             break
                         }
                     }
                 }
-                codesToSend.push(finalCode)
-                displayParts.push(codeToChinese(finalCode))
+
+                // 第二遍：边界前缀匹配，兼容“名七，六”对“名七，六 (七徽六弦)”
+                if (finalCode === "") {
+                    for (var k2 = 0; k2 < allItems.length; k2++) {
+                        var itemParts2 = allItems[k2].split("｜")
+                        if (itemParts2.length > 1) {
+                            var left2 = toHalfWidth(itemParts2[0].trim())
+                            if (left2.indexOf(key) === 0) {
+                                var rest = left2.substring(key.length)
+                                if (/^[\s(（]/.test(rest)) {
+                                    finalCode = itemParts2[1].trim()
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 找不到中文名，兜底当代码过滤
+                if (finalCode === "") {
+                    finalCode = sanitizeCode(c)
+                }
             }
+
+            finalCode = sanitizeCode(finalCode)
+            if (finalCode === "") continue
+
+            codesToSend.push(finalCode)
+            displayParts.push(codeToChinese(finalCode))
         }
         if (codesToSend.length === 0) return
 
@@ -576,6 +633,9 @@ MuseScore {
     }
 
     function insertText(textData, displayText) {
+        textData = sanitizeCode(toHalfWidth(textData))
+        if (textData === "") return
+
         var loc = getValidNoteLocation()
         if (!loc.valid) return
 
@@ -586,7 +646,7 @@ MuseScore {
             var rawText = texts[i].text.replace(/\r/g, "")
             var lines = rawText.split("\n")
             for (var j = 0; j < lines.length; j++) {
-                var raw = lines[j].replace(/[+]/g, "").trim()
+                var raw = toHalfWidth(lines[j].replace(/[+]/g, "").trim())
                 if (raw !== "") {
                     codes.push(raw)
                     displays.push(codeToChinese(raw))
