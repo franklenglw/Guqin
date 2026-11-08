@@ -359,7 +359,7 @@ MuseScore {
         for (var i = 0; i < allItems.length; i++) {
             var parts = allItems[i].split("｜");
             if (parts.length > 1 && parts[1].trim() === code) {
-                return parts[0].split(" ")[0].trim();
+                return parts[0].trim();
             }
         }
         return code; 
