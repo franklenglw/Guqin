@@ -16,7 +16,7 @@ MuseScore {
             "apply": "修改",
             "delete": "删除",
             "deleteAll": "一键删除全部古琴标记",
-            "hint": "点音符 -> 点读取 -> 改代码（多个用 ; 分隔）-> 点修改",
+            "hint": "点音符 -> 点读取 -> 改代码（汉字用分号隔开）-> 点修改",
             "commonMarks": "常用标记",
             "search": "搜索中文 / 代码",
             "clear": "清空",
@@ -31,7 +31,7 @@ MuseScore {
             "apply": "修改",
             "delete": "刪除",
             "deleteAll": "一鍵刪除全部古琴標記",
-            "hint": "點音符 -> 點讀取 -> 改代碼（多個用 ; 分隔）-> 點修改",
+            "hint": "點音符 -> 點讀取 -> 改代碼（漢字用分號隔開）-> 點修改",
             "commonMarks": "常用標記",
             "search": "搜索中文 / 代碼",
             "clear": "清空",
@@ -46,7 +46,7 @@ MuseScore {
             "apply": "Apply",
             "delete": "Delete",
             "deleteAll": "Delete All Guqin Marks",
-            "hint": "Click note -> Read -> Edit code (separate with ;) -> Apply",
+            "hint": "Click note -> Read -> Edit code (separate Chinese with ;) -> Apply",
             "commonMarks": "Common",
             "search": "Search",
             "clear": "Clear",
@@ -61,7 +61,7 @@ MuseScore {
             "apply": "適用",
             "delete": "削除",
             "deleteAll": "古琴マークをすべて削除",
-            "hint": "音符をクリック -> 読み取り -> コードを編集（複数は ; 区切り） -> 適用",
+            "hint": "音符をクリック -> 読み取り -> コードを編集（漢字を ; で区切る） -> 適用",
             "commonMarks": "よく使う",
             "search": "検索",
             "clear": "クリア",
@@ -76,7 +76,7 @@ MuseScore {
             "apply": "적용",
             "delete": "삭제",
             "deleteAll": "모든 고금 마크 삭제",
-            "hint": "음표 클릭 -> 읽기 -> 코드 편집 (여러 개는 ; 로 구분) -> 적용",
+            "hint": "음표 클릭 -> 읽기 -> 코드 편집 (중국어를 ; 로 구분) -> 적용",
             "commonMarks": "자주 쓰는",
             "search": "검색",
             "clear": "지우기",
@@ -102,16 +102,13 @@ MuseScore {
     implicitWidth: 380
     implicitHeight: 720
 
-    // ==== 主题自适应调色板 ====
     SystemPalette { id: sysPalette; colorGroup: SystemPalette.Active }
 
-    // ==== 标记统一配置 ====
     property string markFont: "Noto Qin Jianzipu"
     property int    markFontSize: 12
     property real   markLineSpacing: 1.2
     property real   markOffsetY: 3.5 
 
-    // ==== 防止重复打开的心跳机制 ====
     Settings {
         id: pluginSettings
         category: "guqinNotation"
@@ -128,7 +125,6 @@ MuseScore {
 
     property string multiSep: ";"
 
-    // ==== 完整标记库 ====
     property var allItems: generateAllItems()
     property var filteredItems: []
 
@@ -226,7 +222,7 @@ MuseScore {
         items.push("散如一中间数字组合 ｜ \\sr1-z3")
         items.push("历中间数字组合 ｜ \\li-z7-6")
 
-        // ================= 新增：完整翻译示例 =================
+        // ================= 综合示例 =================
         items.push("大指7徽6分勾7弦 ｜ \\7g/da/7^6")
         items.push("名九勾五 ｜ \\5g/mi^9")
         items.push("大九挑七 ｜ \\7t/da^9")
@@ -254,12 +250,119 @@ MuseScore {
         items.push("大九六|散三 (撮) ｜ \\6g/da^9||\\3g/s")
         items.push("大九六|散三 (反撮) ｜ \\6g/da^9|f\\3g/s")
 
+        // ================= 扩展常用组合（新增 80 条） =================
+        // 1. 常用大指按音组合 (15条)
+        items.push("大七勾一 ｜ \\1g/da^7")
+        items.push("大七挑二 ｜ \\2t/da^7")
+        items.push("大七抹三 ｜ \\3m/da^7")
+        items.push("大七托四 ｜ \\4u/da^7")
+        items.push("大七剔五 ｜ \\5i/da^7")
+        items.push("大七打六 ｜ \\6d/da^7")
+        items.push("大七摘七 ｜ \\7z/da^7")
+        items.push("大九勾五 ｜ \\5g/da^9")
+        items.push("大九抹四 ｜ \\4m/da^9")
+        items.push("大九托六 ｜ \\6u/da^9")
+        items.push("大十徽八分挑七 ｜ \\7t/da/10^8")
+        items.push("大七徽九分抹二 ｜ \\2m/da/7^9")
+        items.push("大十徽三分托六 ｜ \\6u/da/10^3")
+        items.push("大九勾四(下徽) ｜ \\4g/da/9")
+        items.push("大十挑六(下徽) ｜ \\6t/da/10")
+
+        // 2. 常用名指按音组合 (14条)
+        items.push("名七勾一 ｜ \\1g/mi^7")
+        items.push("名七挑二 ｜ \\2t/mi^7")
+        items.push("名七抹三 ｜ \\3m/mi^7")
+        items.push("名七托四 ｜ \\4u/mi^7")
+        items.push("名七剔五 ｜ \\5i/mi^7")
+        items.push("名七打六 ｜ \\6d/mi^7")
+        items.push("名七摘七 ｜ \\7z/mi^7")
+        items.push("名九勾三 ｜ \\3g/mi^9")
+        items.push("名九挑五 ｜ \\5t/mi^9")
+        items.push("名九抹六 ｜ \\6m/mi^9")
+        items.push("名十徽八分勾七 ｜ \\7g/mi/10^8")
+        items.push("名七徽六分挑一 ｜ \\1t/mi/7^6")
+        items.push("名九勾四(下徽) ｜ \\4g/mi/9")
+        items.push("名十挑五(下徽) ｜ \\5t/mi/10")
+
+        // 3. 食指与中指按音组合 (14条)
+        items.push("食七勾一 ｜ \\1g/sh^7")
+        items.push("食七挑二 ｜ \\2t/sh^7")
+        items.push("食七抹三 ｜ \\3m/sh^7")
+        items.push("食七托四 ｜ \\4u/sh^7")
+        items.push("食七剔五 ｜ \\5i/sh^7")
+        items.push("食七打六 ｜ \\6d/sh^7")
+        items.push("食七摘七 ｜ \\7z/sh^7")
+        items.push("中七勾一 ｜ \\1g/zh^7")
+        items.push("中七挑二 ｜ \\2t/zh^7")
+        items.push("中七抹三 ｜ \\3m/zh^7")
+        items.push("中七托四 ｜ \\4u/zh^7")
+        items.push("中七剔五 ｜ \\5i/zh^7")
+        items.push("中七打六 ｜ \\6d/zh^7")
+        items.push("中七摘七 ｜ \\7z/zh^7")
+
+        // 4. 泛音系列 (10条)
+        items.push("泛音大七勾一 ｜ \\1g/da^7/fa")
+        items.push("泛音大九挑二 ｜ \\2t/da^9/fa")
+        items.push("泛音名七抹三 ｜ \\3m/mi^7/fa")
+        items.push("泛音名十勾四 ｜ \\4g/mi^10/fa")
+        items.push("泛音食七挑五 ｜ \\5t/sh^7/fa")
+        items.push("泛音食九勾六 ｜ \\6g/sh^9/fa")
+        items.push("泛音中七抹七 ｜ \\7m/zh^7/fa")
+        items.push("泛音大十勾一 ｜ \\1g/da^10/fa")
+        items.push("泛音名九挑二 ｜ \\2t/mi^9/fa")
+        items.push("泛音食十抹三 ｜ \\3m/sh^10/fa")
+
+        // 5. 上下走音与修饰符 (15条)
+        items.push("大九勾五上 ｜ \\5g/da^9-s")
+        items.push("大七挑六下 ｜ \\6t/da^7-x")
+        items.push("名十抹四下 ｜ \\4m/mi^10-x")
+        items.push("名九挑五上 ｜ \\5t/mi^9-s")
+        items.push("大九绰挑七 ｜ \\7t/da^9/ch")
+        items.push("名十注勾五 ｜ \\5g/mi^10/zhu")
+        items.push("大七上挑三 ｜ \\3t/da^7-s")
+        items.push("大七下勾四 ｜ \\4g/da^7-x")
+        items.push("名九上抹五 ｜ \\5m/mi^9-s")
+        items.push("名九下挑六 ｜ \\6t/mi^9-x")
+        items.push("中七上勾二 ｜ \\2g/zh^7-s")
+        items.push("中七下挑三 ｜ \\3t/zh^7-x")
+        items.push("食七上抹四 ｜ \\4m/sh^7-s")
+        items.push("食七下挑五 ｜ \\5t/sh^7-x")
+        items.push("名十绰勾六 ｜ \\6g/mi^10/ch")
+
+        // 6. 复杂撮与历 (12条)
+        // 【最终修正】：采用正确的 JS 双斜杠转义，确保插件绝对不崩溃，且发出去的字符串是你测试成功的带斜杠版本
+        items.push("撮(大七勾一|名九挑三) ｜ \\1g/da^7||\\3t/mi^9")
+        items.push("撮(大九挑二|散勾六) ｜ \\2t/da^9||\\6g/s")
+        items.push("撮(名七勾三|中九挑五) ｜ \\3g/mi^7||\\5t/zh^9")
+        items.push("撮(食七挑四|大九勾六) ｜ \\4t/sh^7||\\6g/da^9")
+        items.push("反撮(大七勾一|名九挑三) ｜ \\1g/da^7|f\\3t/mi^9")
+        items.push("反撮(大九挑二|散勾六) ｜ \\2t/da^9|f\\6g/s")
+        items.push("名七历三、四弦 ｜ \\li-3-4/mi^7")
+        items.push("大九历五、六弦 ｜ \\li-5-6/da^9")
+        items.push("食七历一、二弦 ｜ \\li-1-2/sh^7")
+        items.push("中九历四、五弦 ｜ \\li-4-5/zh^9")
+        items.push("名十历六、七弦 ｜ \\li-6-7/mi^10")
+        items.push("大七历二、三弦 ｜ \\li-2-3/da^7")
+
         return items
     }
 
     function codeOfItem(s) {
         var parts = s.split("｜")
         return parts.length > 1 ? parts[1].trim() : parts[0].trim()
+    }
+
+    function codeToChinese(code) {
+        if (!code) return "";
+        if (code.indexOf("\\") === -1 && code.indexOf("/") === -1) return code;
+        
+        for (var i = 0; i < allItems.length; i++) {
+            var parts = allItems[i].split("｜");
+            if (parts.length > 1 && parts[1].trim() === code) {
+                return parts[0].split(" ")[0].trim();
+            }
+        }
+        return code; 
     }
 
     function filterItems() {
@@ -286,21 +389,18 @@ MuseScore {
         } catch (e) {}
     }
 
-    // ==== 终极修复：只认游标同步状态，放弃使用 el.tick ====
     function getValidNoteLocation() {
         var cur = curScore.newCursor()
         cur.inputStateMode = Cursor.INPUT_STATE_SYNC_WITH_SCORE
         
         if (curScore.selection && curScore.selection.elements && curScore.selection.elements.length > 0) {
             var el = curScore.selection.elements[0]
-            // 只校验类型，不取 el.tick，直接用已同步的 cur.tick
             if (el.type === Element.NOTE || el.type === Element.CHORD) {
                 return { valid: true, tick: cur.tick, track: cur.track }
             }
             return { valid: false }
         }
         
-        // 没有高亮选中，看游标当前位置是不是音符
         if (cur.segment && cur.element) {
             if (cur.element.type === Element.NOTE || cur.element.type === Element.CHORD) {
                 return { valid: true, tick: cur.tick, track: cur.track }
@@ -359,7 +459,9 @@ MuseScore {
                 var lines = rawText.split("\n")
                 for (var j = 0; j < lines.length; j++) {
                     var raw = lines[j].replace(/[+]/g, "").trim()
-                    if (raw !== "") codes.push(raw)
+                    if (raw !== "") {
+                        codes.push(codeToChinese(raw))
+                    }
                 }
             }
             editInput.text = codes.join(multiSep + " ")
@@ -386,19 +488,37 @@ MuseScore {
         var input = editInput.text.trim()
         if (input === "") return
 
+        input = input.replace(/；/g, ";");
+
         var parts = input.split(multiSep)
-        var codes = []
+        var codesToSend = []
+        var displayParts = []
+
         for (var i = 0; i < parts.length; i++) {
             var c = parts[i].trim()
-            if (c !== "") codes.push(c)
+            if (c !== "") {
+                var finalCode = c;
+                if (c.indexOf("\\") === -1 && c.indexOf("/") === -1) {
+                    for (var k = 0; k < allItems.length; k++) {
+                        var itemParts = allItems[k].split("｜")
+                        if (itemParts.length > 1 && itemParts[0].trim() === c) {
+                            finalCode = itemParts[1].trim()
+                            break
+                        }
+                    }
+                }
+                codesToSend.push(finalCode)
+                displayParts.push(codeToChinese(finalCode))
+            }
         }
-        if (codes.length === 0) return
+        if (codesToSend.length === 0) return
 
         var texts = getAllTextsAtTick(loc.tick, loc.track)
-        var combinedText = codes.join("\n")
+        var combinedText = codesToSend.join("\n")
 
         if (texts.length === 0) {
             insertTexts([combinedText], 0, loc.tick, loc.track)
+            editInput.text = displayParts.join(multiSep + " ")
             return
         }
 
@@ -420,7 +540,7 @@ MuseScore {
         curScore.endCmd()
         relayout()
 
-        editInput.text = codes.join(multiSep + " ")
+        editInput.text = displayParts.join(multiSep + " ")
     }
 
     function insertTexts(codes, startIndex, tick, track) {
@@ -461,16 +581,22 @@ MuseScore {
 
         var texts = getAllTextsAtTick(loc.tick, loc.track)
         var codes = []
+        var displays = []
         for (var i = 0; i < texts.length; i++) {
             var rawText = texts[i].text.replace(/\r/g, "")
             var lines = rawText.split("\n")
             for (var j = 0; j < lines.length; j++) {
                 var raw = lines[j].replace(/[+]/g, "").trim()
-                if (raw !== "") codes.push(raw)
+                if (raw !== "") {
+                    codes.push(raw)
+                    displays.push(codeToChinese(raw))
+                }
             }
         }
-        codes.push(textData) 
-        editInput.text = codes.join(multiSep + " ")
+        codes.push(textData)
+        displays.push(codeToChinese(textData))
+        
+        editInput.text = displays.join(multiSep + " ")
         applyCurrentText()
     }
 
