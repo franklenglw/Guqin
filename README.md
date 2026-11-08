@@ -4,12 +4,13 @@
 这个减字谱的字体是黑体的，或许有些人更喜欢楷体或者宋体，单独修改这个字体可能需要几天的时间（我用的是Glyphs）。目前先用着吧，如果有需要再说。
 最初我选的是另外一款比较好看的楷体字体JianZiPu （作者： Nancy Yi Liang，台湾）（https://jianzipufont.com/ ） （ https://github.com/neuralfirings/JianZiPu ）这个字体使用的造字堆叠的方法可能和思源琴黑略有不同，作者有更多的考量，涵盖了更多的技法，比较成体系。但是，遗憾的是，在musescore 3.6中显示出来的字体有点错乱，原因难明，故而放弃了。
 插件已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
+视频地址：https://www.bilibili.com/video/BV1Rt4j6GEsK/
 
 This plugin is used in MuseScore to render guqin notation symbols. It uses the Noto Qin Jianzipu from (https://github.com/Adrakaris/guqin-jianzipu-font) （Author: Adrakaris/Yijun）.
 This Jianzipu font is in a sans-serif (Hei-ti) style, though some people might prefer a Kai (regular script) or Song (serif) style. Modifying or creating this font separately might take a few days (I use Glyphs). For now, let's just stick with the current one and see; we can revisit it later if there's a real need.
 Initially, I chose another rather aesthetically pleasing Kai-style font called JianZiPu (Author: Nancy Yi Liang, Taiwan) (https://jianzipufont.com/) （ https://github.com/neuralfirings/JianZiPu ）. The character-stacking method used by this font might be slightly different from Noto Qin Jianzipu (Source Han Qin Hei). The author had more comprehensive considerations, covered a wider range of techniques, and the system was more systematic. However, unfortunately, the font rendered somewhat glitchy in MuseScore 3.6 for unknown reasons, so I gave up on it.
 The plugin has been tested for stability in MuseScore 3.7 and 3.6.2. As for MuseScore 4.x, since I cannot install the 4.x version on my Windows 7 computer, it has not been tested.
-
+Video： https://www.bilibili.com/video/BV1Rt4j6GEsK/
 
 古琴减字谱编辑器 V5.0（Guqin JianZiPu Editor V5.0）版权说明
 ---------------------------------------
