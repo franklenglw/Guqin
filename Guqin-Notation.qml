@@ -1236,9 +1236,23 @@ MuseScore {
         console.log("[GuqinNotation] 已删除 " + toRemove.length + " 个古琴标记，已清空选中状态")
     }
 
-    // ==== 一键修改全谱字体 ====
+    // ==== 一键修改全谱字体（静默忽略版） ====
     function switchAllGuqinFonts() {
         if (!curScore) return
+
+        // 1. 检查系统里有没有目标字体
+        var fontList = Qt.fontFamilies()
+        var hasTargetFont = false
+        for (var f = 0; f < fontList.length; f++) {
+            // 忽略大小写进行精确匹配
+            if (fontList[f].toLowerCase() === nextSwitchTarget.toLowerCase()) {
+                hasTargetFont = true
+                break
+            }
+        }
+
+        // 如果没装目标字体，直接忽略，什么都不做，不弹提示
+        if (!hasTargetFont) return
 
         var toSwitch = []
         function addIfMatch(el) {
@@ -1274,10 +1288,8 @@ MuseScore {
             }
         }
 
-        if (toSwitch.length === 0) {
-            statusMessage = "未找到可切换的古琴标记"
-            return
-        }
+        // 如果谱面上没找到古琴标记，直接忽略
+        if (toSwitch.length === 0) return
 
         curScore.startCmd()
         for (var k = 0; k < toSwitch.length; k++) {
@@ -1286,9 +1298,6 @@ MuseScore {
         }
         curScore.endCmd()
         relayout()
-        
-        // 不再显示切换提示，直接清空状态栏
-        statusMessage = ""
         
         // 反转下次的目标字体
         if (nextSwitchTarget === "Noto Qin Jianzipu") {
