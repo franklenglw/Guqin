@@ -1,13 +1,13 @@
 古琴减字谱编辑器
 -------------------------------
-（2026.11.11新增修改后的宋体ShanZiJianZiPu，喜欢宋体的可以安装这个）
+（2026.11.11新增修改后的宋体ShanZiJianZiPu，喜欢宋体的可以安装这个，或两个字体都装，编辑器中可以切换）
 
 这个插件是用在 MuseScore 中用于渲染古琴标记的，支持使用汉字或代码来标记，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font ） 上面的思源琴黑 Noto Qin Jianzipu（字体作者：Adrakaris/Yijun）。 这个减字谱的字体是黑体的，或许有些人更喜欢楷体或者宋体，故在Hu Yijun的琴黑字体基础上又用同一个家族的思源宋体修改了字体并在4天后发布新字体，同时在软件上提供字体切换功能（最新版本V5.26.1116）。按照OFL 1.1 协议，需要对字体进行重命名，且不能含有Noto或思源字样，仅重命名为ShanZiJianZiPu供大家免费使用。按OFL 1.1 协议，你可以免费使用、分发，修改、商用、捆绑销售，但不得单独出售该字体。 
 
 最初我选的是另外一款比较好看的楷体字体JianZiPu （作者： Nancy Yi Liang，台湾）（https://jianzipufont.com/ ） （ https://github.com/neuralfirings/JianZiPu ）这个字体使用的造字堆叠的方法可能和思源琴黑略有不同，作者有更多的考量，涵盖了更多的技法，比较成体系。但是，遗憾的是，在musescore 3.6中显示出来的字体有点错乱，原因难明，故而放弃了。 插件已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
 视频地址：https://www.bilibili.com/video/BV1Rt4j6GEsK/
 
-(The modified Song-style ShanZiJianZiPu wasadded on 2026.11.11; those who prefer Song style can install this one.)
+(The modified Song-style ShanZiJianZiPu wasadded on 2026.11.11; those who prefer Song style can install this one.or install both fonts, which can be changed in editor)
 This plugin is used in MuseScore to render guqin notation. It supports marking with Chinese characters or codes, and it uses Noto Qin Jianzipu (Source Han Qin Hei) from (https://github.com/Adrakaris/guqin-jianzipu-font) (font author: Adrakaris/Yijun). This jianzipu font is in Hei style; perhaps some people prefer Kai or Song style, so based on Hu Yijun's Qin Hei font, I modified the font using Source Han Serif from the same family and released a new font 4 days later, while also providing a font-switching function in the software (latest version V5.26.1116). Under the OFL 1.1 license, the font needs to be renamed and must not contain the words Noto or Source Han; it was renamed simply to ShanZiJianZiPu for everyone to use free of charge. Under OFL 1.1, you may use, distribute, modify, commercially use, and bundle/sell it for free, but you must not sell the font by itself.
 
 Initially I chose another rather good-looking Kai-style font, JianZiPu (author: Nancy Yi Liang, Taiwan) (https://jianzipufont.com/) (https://github.com/neuralfirings/JianZiPu). This font may use a slightly different glyph-stacking/construction method from Source Han Qin Hei; the author had more considerations and covered more techniques, and it is more systematic. Unfortunately, however, the font displayed somewhat garbled in MuseScore 3.6, for unknown reasons, so I gave it up. The plugin has been tested for stability in MuseScore 3.7 and 3.6.2. For MuseScore 4.x, because I cannot install 4.x on my Windows 7 computer, it has not been tested.
