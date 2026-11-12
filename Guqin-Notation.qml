@@ -5,18 +5,20 @@ import MuseScore 3.0
 // ================================================================
 //  古琴减字谱编辑器 (Guqin Jianzipu Editor)
 //  ----------------------------------------------------------------
-//  版本: 5.26.1116 (主版本号.次版本号.修订号)
+//  版本: 5.26.1118 (主版本号.次版本号.修订号)
 //  修改记录:
 //    - 字体切换为 ShanZiJianZiPu
 //    - 兼容识别旧的 Noto Qin Jianzipu 字体
 //    - 新增「一键切换字体」功能，可全谱在新旧字体间无缝切换
 //    - 优化 UI 布局：切换字体与删除按钮并排，去除切换后的状态提示
+//    - 修复：彻底移除 strMap 数组限制，解决输入超过 7 弦/徽时出现 undefined 的 BUG
+//    - 修复：清理冗余的历法条目，补全缺失的历法示例
 // ================================================================
 
 MuseScore {
     id: guqinNotation
     pluginType: "dock"
-    version: "5.26.1116"
+    version: "5.26.1118"
 
     // ==== 多语言配置 ====
     property var translations: {
@@ -248,13 +250,13 @@ MuseScore {
         items.push("历 ｜ \\li")
         
         // ================= 历与散如一的新增示例 =================
-        items.push("历三 ｜ \\li-z3")
-        items.push("历三、四 ｜ \\li-z3-4")
-        items.push("名七历三 ｜ \\li-z3/mi^7")
-        items.push("名七历三、四 ｜ \\li-z3-4/mi^7")
-        items.push("大九历五、六 ｜ \\li-z5-6/da^9")
-        items.push("历中间数字三 ｜ \\li-z3")
-        items.push("历中间数字三、四 ｜ \\li-z3-4")
+        items.push("名九历五四 ｜ \\li-z5-4/mi^9")
+        items.push("名七历三、四弦 ｜ \\li-z3-4/mi^7")
+        items.push("大九历五、六弦 ｜ \\li-z5-6/da^9")
+        items.push("食七历一、二弦 ｜ \\li-z1-2/sh^7")
+        items.push("中九历四、五弦 ｜ \\li-z4-5/zh^9")
+        items.push("名十历六、七弦 ｜ \\li-z6-7/mi^10")
+        items.push("大七历二、三弦 ｜ \\li-z2-3/da^7")
         items.push("散如一中间数字三 ｜ \\sr1-z3")
         // ========================================================
 
@@ -365,8 +367,6 @@ MuseScore {
         items.push("撮(食七挑四|大九勾六) ｜ \\4t/sh^7||\\6g/da^9")
         items.push("反撮(大七勾一|名九挑三) ｜ \\1g/da^7|f\\3t/mi^9")
         items.push("反撮(大九挑二|散勾六) ｜ \\2t/da^9|f\\6g/s")
-        items.push("名十历六、七弦 ｜ \\li-z6-7/mi^10")
-        items.push("大七历二、三弦 ｜ \\li-z2-3/da^7")
 
         return items
     }
@@ -419,7 +419,7 @@ MuseScore {
         return code;
     }
 
-    // 数字 → 中文（1~13 足够覆盖弦号/徽位/徽分）
+    // 数字 → 中文（1~99 安全转换）
     function _cnNum(n) {
         var m = ["零","一","二","三","四","五","六","七","八","九"];
         if (n <= 0) return "";
@@ -568,8 +568,6 @@ MuseScore {
             } else return "";
         }
 
-        var strMap = ["", "一", "二", "三", "四", "五", "六", "七"];
-
         // 专门针对「历」与「散如一」的反推组装
         if (isLi || isSr1) {
             var result = "";
@@ -587,7 +585,7 @@ MuseScore {
             if (liNums.length > 0) {
                 for (var ln = 0; ln < liNums.length; ln++) {
                     if (ln > 0) seqPart += "、";
-                    seqPart += strMap[liNums[ln]];
+                    seqPart += _cnNum(liNums[ln]); // 已替换为安全函数
                 }
             }
             
@@ -616,7 +614,7 @@ MuseScore {
         }
         if (fenNum > 0) result += _cnNum(fenNum) + "分";
         if (rhand) result += rhand;
-        if (strNum > 0) result += strMap[strNum];
+        if (strNum > 0) result += _cnNum(strNum); // 已替换为安全函数
         for (var w = 0; w < walks.length; w++) result += walks[w];
         if (ch)   result += "绰";
         if (zhu)  result += "注";
