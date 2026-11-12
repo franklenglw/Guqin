@@ -1,9 +1,10 @@
 古琴减字谱编辑器
 -------------------------------
-这个插件是用在 MuseScore 中用于渲染古琴标记的，支持使用中文或代码来标记，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font ） 上面的思源琴黑 Noto Qin Jianzipu（字体作者：Adrakaris/Yijun）。
-这个减字谱的字体是黑体的，或许有些人更喜欢楷体或者宋体，单独修改这个字体可能需要几天的时间（我用的是Glyphs）。目前先用着吧，如果有需要再说。
-最初我选的是另外一款比较好看的楷体字体JianZiPu （作者： Nancy Yi Liang，台湾）（https://jianzipufont.com/ ） （ https://github.com/neuralfirings/JianZiPu ）这个字体使用的造字堆叠的方法可能和思源琴黑略有不同，作者有更多的考量，涵盖了更多的技法，比较成体系。但是，遗憾的是，在musescore 3.6中显示出来的字体有点错乱，原因难明，故而放弃了。
-插件已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
+（2026.11.11新增修改后的宋体ShanZiJianZiPu，喜欢宋体的可以安装这个）
+
+这个插件是用在 MuseScore 中用于渲染古琴标记的，支持使用汉字或代码来标记，所使用的是（https://github.com/Adrakaris/guqin-jianzipu-font ） 上面的思源琴黑 Noto Qin Jianzipu（字体作者：Adrakaris/Yijun）。 这个减字谱的字体是黑体的，或许有些人更喜欢楷体或者宋体，故在Hu Yijun的琴黑字体基础上又用同一个家族的思源宋体修改了字体并在4天后发布新字体，同时在软件上提供字体切换功能（最新版本V5.26.1116）。按照OFL 1.1 协议，需要对字体进行重命名，且不能含有Noto或思源字样，仅重命名为ShanZiJianZiPu供大家免费使用。按OFL 1.1 协议，你可以免费使用、分发，修改、商用、捆绑销售，但不得单独出售该字体。 
+
+最初我选的是另外一款比较好看的楷体字体JianZiPu （作者： Nancy Yi Liang，台湾）（https://jianzipufont.com/ ） （ https://github.com/neuralfirings/JianZiPu ）这个字体使用的造字堆叠的方法可能和思源琴黑略有不同，作者有更多的考量，涵盖了更多的技法，比较成体系。但是，遗憾的是，在musescore 3.6中显示出来的字体有点错乱，原因难明，故而放弃了。 插件已经在 MuseScore 3.7 和 3.6.2 中经过稳定测试。对于 MuseScore 4.x，由于我电脑 Win7 上无法安装 4.x 版本，故未测试。
 视频地址：https://www.bilibili.com/video/BV1Rt4j6GEsK/
 
 This plugin is used in MuseScore to render guqin notation symbols. It uses the Noto Qin Jianzipu from (https://github.com/Adrakaris/guqin-jianzipu-font) （Author: Adrakaris/Yijun）.
