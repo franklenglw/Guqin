@@ -12,7 +12,7 @@ This plugin is used in MuseScore to render guqin notation. It supports marking w
 Initially I chose another rather good-looking Kai-style font, JianZiPu (author: Nancy Yi Liang, Taiwan) (https://jianzipufont.com/) (https://github.com/neuralfirings/JianZiPu). This font may use a slightly different glyph-stacking/construction method from Source Han Qin Hei; the author had more considerations and covered more techniques, and it is more systematic. Unfortunately, however, the font displayed somewhat garbled in MuseScore 3.6, for unknown reasons, so I gave it up. The plugin has been tested for stability in MuseScore 3.7 and 3.6.2. For MuseScore 4.x, because I cannot install 4.x on my Windows 7 computer, it has not been tested.
 Video： https://www.bilibili.com/video/BV1Rt4j6GEsK/
 
-古琴减字谱编辑器 V5.0（Guqin JianZiPu Editor V5.0）版权说明
+古琴减字谱编辑器（Guqin JianZiPu Editor）版权说明
 ---------------------------------------
 一、许可声明
 
@@ -72,7 +72,7 @@ CC0 仅覆盖本项目的代码与文档，不覆盖下列第三方内容，请�
 属本项目作者撰写，已随本项目一并进入公共领域。
 
 
-Guqin JianZiPu Editor V5.0 — Copyright Notice
+Guqin JianZiPu Editor — Copyright Notice
 ---------------------------------------
 1. License Statement
 
