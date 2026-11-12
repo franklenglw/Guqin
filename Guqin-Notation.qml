@@ -5,20 +5,16 @@ import MuseScore 3.0
 // ================================================================
 //  古琴减字谱编辑器 (Guqin Jianzipu Editor)
 //  ----------------------------------------------------------------
-//  版本: 5.26.1118 (主版本号.次版本号.修订号)
+//  版本: 5.26.1119 (主版本号.次版本号.修订号)
 //  修改记录:
-//    - 字体切换为 ShanZiJianZiPu
-//    - 兼容识别旧的 Noto Qin Jianzipu 字体
-//    - 新增「一键切换字体」功能，可全谱在新旧字体间无缝切换
-//    - 优化 UI 布局：切换字体与删除按钮并排，去除切换后的状态提示
-//    - 修复：彻底移除 strMap 数组限制，解决输入超过 7 弦/徽时出现 undefined 的 BUG
-//    - 修复：清理冗余的历法条目，补全缺失的历法示例
+//    - 新增 normalizeCode 代码自动纠错函数
+//    - 解决手敲 \li-5-4 或 -s-7-6 导致数字重叠的 BUG
 // ================================================================
 
 MuseScore {
     id: guqinNotation
     pluginType: "dock"
-    version: "5.26.1118"
+    version: "5.26.1119"
 
     // ==== 多语言配置 ====
     property var translations: {
@@ -128,13 +124,12 @@ MuseScore {
     SystemPalette { id: sysPalette; colorGroup: SystemPalette.Active }
 
     // ==== 字体核心设置 ====
-    property string markFont: "ShanZiJianZiPu"          // 优先使用新造字体
-    property string legacyMarkFont: "Noto Qin Jianzipu" // 兼容旧字体
+    property string markFont: "ShanZiJianZiPu"          
+    property string legacyMarkFont: "Noto Qin Jianzipu" 
     property int    markFontSize: 12
     property real   markLineSpacing: 1.2
     property real   markOffsetY: 3.5 
     
-    // 记录下一次切换的目标字体，默认先切回旧字体
     property string nextSwitchTarget: "Noto Qin Jianzipu"
 
     Settings {
@@ -287,7 +282,7 @@ MuseScore {
         items.push("大九六|散三 (撮) ｜ \\6g/da^9||\\3g/s")
         items.push("大九六|散三 (反撮) ｜ \\6g/da^9|f\\3g/s")
 
-        // ================= 扩展常用组合（新增 80 条） =================
+        // ================= 扩展常用组合 =================
         items.push("大七勾一 ｜ \\1g/da^7")
         items.push("大七挑二 ｜ \\2t/da^7")
         items.push("大七抹三 ｜ \\3m/da^7")
@@ -389,6 +384,26 @@ MuseScore {
     function sanitizeCode(s) {
         if (!s) return "";
         return s.replace(/[^0-9A-Za-z\\\/\-\^\|]/g, "");
+    }
+
+    // ============================================================
+    // 代码自动纠错函数：防呆设计
+    // ============================================================
+    function normalizeCode(code) {
+        if (!code) return code;
+        
+        // 1. 修复 \li-5 为 \li-z5
+        code = code.replace(/\\li-(\d)/g, "\\li-z$1");
+        // 2. 修复 \sr1-3 为 \sr1-z3
+        code = code.replace(/\\sr1-(\d)/g, "\\sr1-z$1");
+        // 3. 修复走音 \g-s-7 为 \g-s-z7，\g-x-3 为 \g-x-z3
+        code = code.replace(/-([sx])-(\d)/g, "-$1-z$2");
+        
+        // 4. 修复多余的 z (如 -z3-z4 -> -z3-4，-z3-z4-z5 -> -z3-4-5)
+        code = code.replace(/-z(\d+)-z(\d+)/g, "-z$1-$2");
+        code = code.replace(/-z(\d+)-z(\d+)-z(\d+)/g, "-z$1-$2-$3");
+        
+        return code;
     }
 
     function codeOfItem(s) {
@@ -585,7 +600,7 @@ MuseScore {
             if (liNums.length > 0) {
                 for (var ln = 0; ln < liNums.length; ln++) {
                     if (ln > 0) seqPart += "、";
-                    seqPart += _cnNum(liNums[ln]); // 已替换为安全函数
+                    seqPart += _cnNum(liNums[ln]);
                 }
             }
             
@@ -614,7 +629,7 @@ MuseScore {
         }
         if (fenNum > 0) result += _cnNum(fenNum) + "分";
         if (rhand) result += rhand;
-        if (strNum > 0) result += _cnNum(strNum); // 已替换为安全函数
+        if (strNum > 0) result += _cnNum(strNum);
         for (var w = 0; w < walks.length; w++) result += walks[w];
         if (ch)   result += "绰";
         if (zhu)  result += "注";
@@ -675,7 +690,6 @@ MuseScore {
         if (!s) return ""
         if (s.indexOf("撮") >= 0) return parseCuoMark(s)
 
-        // 修复正则 bug：兼容全半角括号
         var _noParen = s.replace(/[（(][^）)]*[）)]/g, "")
         var preferHyphenHalf = /半.*?横杠/.test(_noParen) || /半.*?横杠/.test(s)
         var preferHyphenWai  = /外.*?横杠/.test(_noParen) || /外.*?横杠/.test(s)
@@ -810,7 +824,6 @@ MuseScore {
             var codeS = "\\" + special
             if (special === "li" && liStrings.length > 0) {
                 for (var L = 0; L < liStrings.length; L++) {
-                    // 修改点：为了避开字库缺陷，强制给历的第一个数字加上 z
                     if (L === 0) {
                         codeS += "-z" + liStrings[L]
                     } else {
@@ -1025,7 +1038,8 @@ MuseScore {
 
             var finalCode = ""
             if (c.indexOf("\\") !== -1 || c.indexOf("/") !== -1) {
-                finalCode = sanitizeCode(c)
+                // 显式代码：清洗后，进行自动纠错
+                finalCode = normalizeCode(sanitizeCode(c))
             } else {
                 finalCode = sanitizeCode(resolveChineseName(c))
             }
@@ -1110,7 +1124,8 @@ MuseScore {
     }
 
     function insertText(textData, displayText) {
-        textData = sanitizeCode(toHalfWidth(textData))
+        // 从列表点击插入时，也自动纠错一次
+        textData = normalizeCode(sanitizeCode(toHalfWidth(textData)))
         if (textData === "") return
 
         var loc = getValidNoteLocation()
@@ -1166,7 +1181,6 @@ MuseScore {
         var t1 = markFont.toLowerCase()          // ShanZiJianZiPu
         var t2 = legacyMarkFont.toLowerCase()    // Noto Qin Jianzipu
         
-        // 只要匹配到任意一个新/旧字体，都认为是古琴标记
         return (f1.indexOf(t1) >= 0 || f2.indexOf(t1) >= 0 ||
                 f1.indexOf(t2) >= 0 || f2.indexOf(t2) >= 0)
     }
@@ -1238,18 +1252,15 @@ MuseScore {
     function switchAllGuqinFonts() {
         if (!curScore) return
 
-        // 1. 检查系统里有没有目标字体
         var fontList = Qt.fontFamilies()
         var hasTargetFont = false
         for (var f = 0; f < fontList.length; f++) {
-            // 忽略大小写进行精确匹配
             if (fontList[f].toLowerCase() === nextSwitchTarget.toLowerCase()) {
                 hasTargetFont = true
                 break
             }
         }
 
-        // 如果没装目标字体，直接忽略，什么都不做，不弹提示
         if (!hasTargetFont) return
 
         var toSwitch = []
@@ -1286,7 +1297,6 @@ MuseScore {
             }
         }
 
-        // 如果谱面上没找到古琴标记，直接忽略
         if (toSwitch.length === 0) return
 
         curScore.startCmd()
@@ -1297,7 +1307,6 @@ MuseScore {
         curScore.endCmd()
         relayout()
         
-        // 反转下次的目标字体
         if (nextSwitchTarget === "Noto Qin Jianzipu") {
             nextSwitchTarget = "ShanZiJianZiPu"
         } else {
@@ -1400,13 +1409,11 @@ MuseScore {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            // 底部并排双按钮
             Row {
                 width: 360
                 spacing: 6
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                // 左侧：一键切换字体
                 Rectangle {
                     width: 177; height: 34
                     color: switchMouse.containsMouse ? "#c0e0c0" : "#e0e0e0" 
@@ -1428,7 +1435,6 @@ MuseScore {
                     }
                 }
 
-                // 右侧：一键删除全部标记
                 Rectangle {
                     width: 177; height: 34
                     color: delAllMouse.containsMouse ? "#ffaaaa" : "#e0e0e0" 
